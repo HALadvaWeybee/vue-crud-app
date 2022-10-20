@@ -1,0 +1,226 @@
+<div class="container">
+    <div class="row" *ngIf="isAddForm">
+        <div class="modal-1">
+            <button class="close-modal-1" (click)="closeForm()">&times;</button>
+            <h3>Product Details</h3>
+            <form [formGroup]="loginReactiveForm" (ngSubmit)="submitData(myForm)" #myForm>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="mb-3">
+                    <label for="floatingTextarea2">Description</label>
+                    <textarea formControlName="description" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                </div>
+                <!-- <div class="mb-3">
+                    <label for="image">Image</label>
+                    <input type="text" formControlName="image" class="form-control">
+                </div> -->
+                <div class="mb-3">
+                    <label for="status" class="form-label">Inventory status</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="select">
+                        <option [selected]>Open this select menu</option>
+                        <option value="instock">INSTOCK</option>
+                        <option value="lowstock">LOWSTOCK</option>
+                        <option value="outofstock">OUTOFSTOCK</option>
+                      </select>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="accessories" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                  Accessories
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" value="electronics" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                  electronics
+                                </label>
+                              </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="clothing" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault3">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                  Clothing
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" value="fitness" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault4">
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                  fitness
+                                </label>
+                              </div>    
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" formControlName="price" aria-label="price">
+                    </div>
+                    <div class="col">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" formControlName="quantity" aria-label="quantity">
+                    </div>
+                  </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+        <div class="overlay-1"></div>
+    </div>
+    <div class="row" *ngIf="isEditForm">
+        <div class="modal-1">
+            <button class="close-modal-1" (click)="closeEditForm()">&times;</button>
+            <h3>Product Details</h3>
+            <form [formGroup]="loginEditReactiveForm" (ngSubmit)="submitEditData()" #myForm>
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control" formControlName="name" [(ngModel)]="editData.name">
+                </div>
+                <div class="mb-3">
+                    <label for="floatingTextarea2">Description</label>
+                    <textarea formControlName="description" class="form-control" id="floatingTextarea2" style="height: 100px" [(ngModel)]="editData.description"></textarea>
+                </div>
+                <!-- <div class="mb-3">
+                    <label for="image">Image</label>
+                    <input type="text" formControlName="image" class="form-control">
+                </div> -->
+                <div class="mb-3">
+                    <label for="status" class="form-label">Inventory status</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="select" [(ngModel)]="editData.select">
+                        <option [selected]>Open this select menu</option>
+                        <option value="instock">INSTOCK</option>
+                        <option value="lowstock">LOWSTOCK</option>
+                        <option value="outofstock">OUTOFSTOCK</option>
+                      </select>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="accessories" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault1" [(ngModel)]="editData.radioinput">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                  Accessories
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" value="electronics" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault2" [(ngModel)]="editData.radioinput">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                  electronics
+                                </label>
+                              </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" value="clothing" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault3" [(ngModel)]="editData.radioinput">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                  Clothing
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" value="fitness" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault4" [(ngModel)]="editData.radioinput">
+                                <label class="form-check-label" for="flexRadioDefault4">
+                                  fitness
+                                </label>
+                              </div>    
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" formControlName="price" aria-label="price" [(ngModel)]="editData.price">
+                    </div>
+                    <div class="col">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" formControlName="quantity" aria-label="quantity" [(ngModel)]="editData.quantity">
+                    </div>
+                  </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+        <div class="overlay-1"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row row-cols-auto">
+        <div class="col d-flex flex-row">
+            <button class="btn btn-success" (click)="openForm()"><i class="fa-regular fa-plus"></i> New</button>
+            <button class="btn btn-danger ms-1" (click)="deleteSelected()"><i class="fa-regular fa-trash-can"></i> Delete</button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"><input type="checkbox" (click)="selectAll()" ></th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Reviews</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of showData">
+                    <th scope="row"><input type="checkbox" [checked]="item.isCheck" (click)="checking(item.code)"></th>
+                    <td>{{item.code}}</td>
+                    <td>{{item.name}}</td>
+                    <td><img src="https://www.primefaces.org/poseidon-vue/demo/images/product/bamboo-watch.jpg" alt="No found"></td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.radioinput}}</td>
+                    <td>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </td>
+                    <td>{{item.select}}</td>
+                    <td><button class="btn btn-success" (click)="openEditForm(item.code)"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" (click)="deleteRow(item.code)"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- <form [formGroup]="loginReactiveForm" (ngSubmit)="submitData()">
+                <label for="name">Name</label><br>
+                <input type="text" formControlName="name"><br>
+
+                <label for="description">Description</label><br>
+                <textarea name="description" id="" cols="55" rows="5" formControlName="description"></textarea><br>
+
+                <label for="image">Image</label><br>
+                <input type="text" formControlName="image"><br>
+
+                <label for="status">Inventory status</label><br>
+                <select name="status" formControlName="select">
+                    <option value="" [selected]>Select a status</option>
+                    <option value="instock">INSTOCK</option>
+                    <option value="lowstock">LOWSTOCK</option>
+                    <option value="outofstock">OUTOFSTOCK</option>
+                </select><br>
+                
+                <label for="category">Category</label>
+                <input type="radio">
+                <label for="price">Price</label><br>
+                <input type="number" formControlName="price"><br>
+
+                <label for="quantity">Quantity</label><br>
+                <input type="number" formControlName="quantity"><br>
+
+                <button>Submit</button>
+            </form> -->
