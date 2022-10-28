@@ -29,15 +29,18 @@ export class StorageService {
      this.productArr.push(data);
      localStorage.setItem('productArr', JSON.stringify(this.productArr));
   }
+
   editItemInLocalStorage(data:any, id:string) {
      const index = this.productArr.findIndex((ele) => ele.code  == id);
      data.code = id;
-     data.isCheck = this.productArr[index].isCheck;
+     data.isCheck = this.productArr[index]?.isCheck;
      this.productArr[index] = data;
+     console.log("updated data", this.productArr[index]);
+     
      localStorage.setItem('productArr', JSON.stringify(this.productArr));
   }
 
-  deleteItemFromLocalStorage(id:string) {
+    deleteItemFromLocalStorage(id:string) {
     this.productArr = this.productArr.filter(ele => ele.code != id);
     localStorage.setItem('productArr', JSON.stringify(this.productArr));
   }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../services/storage.service';
 
@@ -14,47 +13,60 @@ export class TableComponent implements OnInit {
   isEditForm = false;
   showData:any[] =[];
   editData:any;
+  arrow='up';
+  page = 1;
+  total =0;
+  productPerPageArr = [5, 10, 15, 20];
+  productPerPage:number = 5;
+  loginEditReactiveForm:FormGroup;
+  searchword = '';
+
   constructor(private _storageService: StorageService) { }
 
   loginReactiveForm = new FormGroup({
     name:new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]),
     description:new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z]*')]),
-    // image:new FormControl('', [Validators.required]),
-    // password:new FormControl('', [Validators.required, Validators.minLength(5)]),
+    image:new FormControl('', [Validators.required]),
+    rating:new FormControl('', [Validators.required]),
     select:new FormControl('', [Validators.required]),
     radioinput:new FormControl('', [Validators.required]),
     price:new FormControl('', [Validators.required]),
     quantity:new FormControl('', [Validators.required]),
   })
 
-  loginEditReactiveForm = new FormGroup({
-    name:new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]),
-    description:new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z]*')]),
-    // image:new FormControl('', [Validators.required]),
-    // password:new FormControl('', [Validators.required, Validators.minLength(5)]),
-    select:new FormControl('', [Validators.required]),
-    radioinput:new FormControl('', [Validators.required]),
-    price:new FormControl('', [Validators.required]),
-    quantity:new FormControl('', [Validators.required]),
-  })
+  
 
 
   ngOnInit(): void {
-     this.showData = this._storageService.getItemsFromLocalStorage();
+     this.loadData();
   }
 
+  loadData() {
+    if(this.searchword=='') {
+      this.showData = this._storageService.getItemsFromLocalStorage();
+     this.total = this.showData.length;
+     }
+     else {
+      this.showData = this.showData.filter(ele => ele.name.includes(this.searchword));
+      this.total = this.showData.length;
+     }
+  }
   submitEditData() {
      console.log(this.loginEditReactiveForm.value);
      const index = this.showData.findIndex(ele => ele.code == this.editData.code);
      this.showData[index] = this.loginEditReactiveForm.value;
      this.isEditForm = !this.isEditForm;
      this._storageService.editItemInLocalStorage(this.loginEditReactiveForm.value, this.editData.code);
+     
   }
   submitData(myForm:any) {
-    console.log(this.loginReactiveForm.value); 
+    console.log("hello in submit"); 
+    // this.showData.push(this.loginReactiveForm.value);
     this._storageService.setItemInLocalStorage(this.loginReactiveForm.value);
     this.isAddForm= !this.isAddForm;
+    this.total = this.total+1;
     myForm.value = '';
+    this.loadData();
     this.loginReactiveForm.reset();
   }
 
@@ -65,18 +77,30 @@ export class TableComponent implements OnInit {
   }
   deleteRow(id:string) {
     this.showData = this.showData.filter(ele => ele.code != id)
+    this.total = this.showData.length;
     this._storageService.deleteItemFromLocalStorage(id);
   }
 
   openEditForm(id:number) {
     this.isEditForm = !this.isEditForm;
     this.editData =  this.showData.find(ele => ele.code == id);
+    this.loginEditReactiveForm = new FormGroup({
+      name:new FormControl(this.editData['name'], [Validators.required, Validators.pattern('[a-zA-Z]*')]),
+      description:new FormControl(this.editData['description'], [Validators.required, Validators.pattern('[a-zA-Z]*')]),
+      image:new FormControl(this.editData['image'], [Validators.required]),
+      rating:new FormControl(this.editData['rating'], [Validators.required]),
+      select:new FormControl(this.editData['select'], [Validators.required]),
+      radioinput:new FormControl(this.editData['radioinput'], [Validators.required]),
+      price:new FormControl(this.editData['price'], [Validators.required]),
+      quantity:new FormControl(this.editData['quantity'], [Validators.required]),
+    })
     console.log(this.editData);
   }
 
   deleteSelected() {
     this.showData = this.showData.filter(ele => ele.isCheck==false);
     this._storageService.deleteSelectedInLocStorage();
+    this.total = this.showData.length;
   }
 
   selectAll() {
@@ -84,15 +108,30 @@ export class TableComponent implements OnInit {
   }
   // ----------------------------------------------------------------------------------------------------------------
   openForm() {
-    this.isAddForm= !this.isAddForm;
+    this.isAddForm= true;
   }
 
   closeForm() {
-    this.isAddForm= !this.isAddForm;
+    this.isAddForm= false;
+    this.isEditForm = false;
   }
 
-  
-  closeEditForm() {
-    this.isEditForm = !this.isEditForm;
+
+  sortList(sortVal:string) {     
+    this.arrow == 'up'? this.showData.sort((a, b) => a[sortVal] > b[sortVal] ? -1 : 1):this.showData.sort((a, b) => a[sortVal] > b[sortVal] ? 1 : -1);
+    this.arrow = this.arrow=='up' ? 'down' : 'up'; 
+  }
+
+  searchWord(word:string) {
+    this.searchword = word;
+    this.loadData();
+  }
+
+  itemPerPage(perPageNumber:number) {
+    this.productPerPage = perPageNumber;
+    this.page = 1;
+  }
+  pageChangeEvent(event: number) {
+    this.page = event;  
   }
 }

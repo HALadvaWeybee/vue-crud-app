@@ -1,28 +1,34 @@
 <div class="container">
+   
     <div class="row" *ngIf="isAddForm">
-        <div class="modal-1">
-            <button class="close-modal-1" (click)="closeForm()">&times;</button>
-            <h3>Product Details</h3>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 modal-1">
+            <div>
+              <button class="close-modal-1" (click)="closeForm()">&times;</button>
+             <h5>Product Details</h5>
+            </div>
             <form [formGroup]="loginReactiveForm" (ngSubmit)="submitData(myForm)" #myForm>
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control" formControlName="name">
+                  <input type="text" class="form-control" formControlName="name" placeholder="Enter the Name">
                 </div>
                 <div class="mb-3">
                     <label for="floatingTextarea2">Description</label>
-                    <textarea formControlName="description" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <textarea formControlName="description" class="form-control" id="floatingTextarea2" style="height: 100px" placeholder="Description..."></textarea>
                 </div>
-                <!-- <div class="mb-3">
+                <div class="mb-3">
                     <label for="image">Image</label>
-                    <input type="text" formControlName="image" class="form-control">
-                </div> -->
+                    <input type="url" formControlName="image" class="form-control" placeholder="Enter URL">
+                </div>
+                <div class="mb-3">
+                    <label for="image">Rating</label>
+                    <input type="number" formControlName="rating" class="form-control" placeholder="Enter Rating" min="1" max="5">
+                </div>
                 <div class="mb-3">
                     <label for="status" class="form-label">Inventory status</label>
                     <select class="form-select" aria-label="Default select example" formControlName="select">
-                        <option [selected]>Open this select menu</option>
-                        <option value="instock">INSTOCK</option>
-                        <option value="lowstock">LOWSTOCK</option>
-                        <option value="outofstock">OUTOFSTOCK</option>
+                        <option value="INSTOCK">INSTOCK</option>
+                        <option value="LOWSTOCK">LOWSTOCK</option>
+                        <option value="OUTOFSTOCK">OUTOFSTOCK</option>
                       </select>
                 </div>
                 <div class="mb-3">
@@ -61,42 +67,46 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" formControlName="price" aria-label="price">
+                        <input type="number" class="form-control" formControlName="price" aria-label="price" placeholder="Enter Price">
                     </div>
                     <div class="col">
                         <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" formControlName="quantity" aria-label="quantity">
+                        <input type="number" class="form-control" formControlName="quantity" aria-label="quantity" placeholder="Enter Quantity">
                     </div>
                   </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+                <button type="submit" class="btn btn-outline-primary" (click)="closeForm()">Cancel</button>
               </form>
         </div>
         <div class="overlay-1"></div>
     </div>
     <div class="row" *ngIf="isEditForm">
-        <div class="modal-1">
-            <button class="close-modal-1" (click)="closeEditForm()">&times;</button>
-            <h3>Product Details</h3>
+        <div class="col modal-1">
+            <button class="close-modal-1" (click)="closeForm()">&times;</button>
+            <h5>Product Details</h5>
             <form [formGroup]="loginEditReactiveForm" (ngSubmit)="submitEditData()" #myForm>
+              <div class="mb-3 text-center">
+                  <img src="{{editData.image}}" alt="No image Found" style="width: 149px;">
+              </div>
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control" formControlName="name" [(ngModel)]="editData.name">
+                  <input type="text" class="form-control" formControlName="name">
                 </div>
                 <div class="mb-3">
                     <label for="floatingTextarea2">Description</label>
-                    <textarea formControlName="description" class="form-control" id="floatingTextarea2" style="height: 100px" [(ngModel)]="editData.description"></textarea>
+                    <textarea formControlName="description" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
                 </div>
-                <!-- <div class="mb-3">
-                    <label for="image">Image</label>
-                    <input type="text" formControlName="image" class="form-control">
-                </div> -->
+                <div class="mb-3">
+                  <label for="image">Rating</label>
+                  <input type="number" formControlName="rating" class="form-control" placeholder="Enter Rating" min="1" max="5">
+              </div>
                 <div class="mb-3">
                     <label for="status" class="form-label">Inventory status</label>
-                    <select class="form-select" aria-label="Default select example" formControlName="select" [(ngModel)]="editData.select">
-                        <option [selected]>Open this select menu</option>
-                        <option value="instock">INSTOCK</option>
-                        <option value="lowstock">LOWSTOCK</option>
-                        <option value="outofstock">OUTOFSTOCK</option>
+                    <select class="form-select" aria-label="Default select example" formControlName="select">
+
+                        <option value="INSTOCK">INSTOCK</option>
+                        <option value="LOWSTOCK">LOWSTOCK</option>
+                        <option value="OUTOFSTOCK">OUTOFSTOCK</option>
                       </select>
                 </div>
                 <div class="mb-3">
@@ -104,13 +114,13 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" value="accessories" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault1" [(ngModel)]="editData.radioinput">
+                                <input class="form-check-input" value="accessories" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                   Accessories
                                 </label>
                               </div>
                               <div class="form-check">
-                                <input class="form-check-input" value="electronics" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault2" [(ngModel)]="editData.radioinput">
+                                <input class="form-check-input" value="electronics" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault2">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                   electronics
                                 </label>
@@ -118,13 +128,13 @@
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" value="clothing" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault3" [(ngModel)]="editData.radioinput">
+                                <input class="form-check-input" value="clothing" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault3">
                                 <label class="form-check-label" for="flexRadioDefault3">
                                   Clothing
                                 </label>
                               </div>
                               <div class="form-check">
-                                <input class="form-check-input" value="fitness" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault4" [(ngModel)]="editData.radioinput">
+                                <input class="form-check-input" value="fitness" type="radio" name="radioinput" formControlName="radioinput" id="flexRadioDefault4">
                                 <label class="form-check-label" for="flexRadioDefault4">
                                   fitness
                                 </label>
@@ -135,14 +145,15 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" formControlName="price" aria-label="price" [(ngModel)]="editData.price">
+                        <input type="number" class="form-control" formControlName="price" aria-label="price" >
                     </div>
                     <div class="col">
                         <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" formControlName="quantity" aria-label="quantity" [(ngModel)]="editData.quantity">
+                        <input type="number" class="form-control" formControlName="quantity" aria-label="quantity">
                     </div>
                   </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+                <button type="submit" class="btn btn-outline-primary" (click)="closeForm()">Cancel</button>
               </form>
         </div>
         <div class="overlay-1"></div>
@@ -150,77 +161,75 @@
 </div>
 
 <div class="container">
-    <div class="row row-cols-auto">
-        <div class="col d-flex flex-row">
-            <button class="btn btn-success" (click)="openForm()"><i class="fa-regular fa-plus"></i> New</button>
-            <button class="btn btn-danger ms-1" (click)="deleteSelected()"><i class="fa-regular fa-trash-can"></i> Delete</button>
-        </div>
+    <div class="row">
+       <h1 class="text-center border-bottom border-secondary">Product List</h1>
     </div>
     <div class="row">
-        <table class="table">
+        <div class="col d-flex flex-row">
+            <button class="btn btn-success" (click)="openForm()"><i class="fa-regular fa-plus"></i> New</button>
+            <button class="btn btn-danger ms-1" (click)="deleteSelected()" *ngIf="showData.length!=0"><i class="fa-regular fa-trash-can"></i> Delete</button>
+        </div>
+    </div>
+    <div class="row p-3 mt-3">
+      <div class="col d-flex justify-content-between">
+          <h4>Manage Product</h4>
+          <div><input type="text" class="form-control" #search placeholder="Enter the Search..." (keyup)="searchWord(search.value)"></div>
+      </div>
+      <!-- <div class="col col-lg-2 d-flex justify-content-end align-items-center">
+      </div> -->
+    </div>
+    <div class="row data-table">
+        <div class="col">
+          <table class="table table-light">
             <thead>
-                <tr>
-                    <th scope="col"><input type="checkbox" (click)="selectAll()" ></th>
-                    <th scope="col">Code</th>
-                    <th scope="col">Name</th>
+                <tr [ngClass]="{'table-primary':checked.checked==true}">
+                    <th scope="col"><input type="checkbox" (click)="selectAll()" #checked></th>
+                    <th scope="col" (click)="sortList('code')">Code</th>
+                    <th scope="col" (click)="sortList('name')">Name</th>  
                     <th scope="col">Image</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Reviews</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" (click)="sortList('price')">Price</th>
+                    <th scope="col" (click)="sortList('radioinput')">Category</th>
+                    <th scope="col" (click)="sortList('rating')">Reviews</th>
+                    <th scope="col" (click)="sortList('select')">Status</th>
+                    <th scope="col">&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of showData">
-                    <th scope="row"><input type="checkbox" [checked]="item.isCheck" (click)="checking(item.code)"></th>
+                <tr *ngFor="let item of showData | paginate: { itemsPerPage: productPerPage, currentPage: page, totalItems: total };" [ngClass]="{'table-primary':item.isCheck==true}">
+                    <th scope="row" [ngClass]="{'active-blue':item?.isCheck}"><input type="checkbox" [checked]="item.isCheck" (click)="checking(item.code)"></th>
                     <td>{{item.code}}</td>
                     <td>{{item.name}}</td>
-                    <td><img src="https://www.primefaces.org/poseidon-vue/demo/images/product/bamboo-watch.jpg" alt="No found"></td>
-                    <td>{{item.price}}</td>
+                    <td><img src="{{item.image}}" alt="No found"></td>
+                    <td>${{item.price}}</td>
                     <td>{{item.radioinput}}</td>
                     <td>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+                      <!-- {{item.rating}} -->
+                      <span *ngFor="let item1 of [].constructor(5) let i = index;">
+                        <i *ngIf="i+1 <= item?.rating" class="fa-solid fa-star" style="color: rgb(212, 105, 33);"></i>
+                        <i *ngIf="i+1 > item?.rating" class="fa-regular fa-star" style="color: rgb(212, 105, 33);"></i>
+                      </span>
                     </td>
-                    <td>{{item.select}}</td>
-                    <td><button class="btn btn-success" (click)="openEditForm(item.code)"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" (click)="deleteRow(item.code)"><i class="fa-solid fa-trash"></i></button></td>
+                    <td><span [ngClass]="{'bg-success':item.select=='INSTOCK','bg-warning':item.select=='LOWSTOCK','bg-danger':item.select=='OUTOFSTOCK'}">{{item.select}}</span></td>
+                    <td><button class="btn btn-success" (click)="openEditForm(item.code)"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;<button class="btn btn-danger" (click)="deleteRow(item.code)"><i class="fa-regular fa-trash-can"></i></button></td>
                 </tr>
             </tbody>
         </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="showData.length!=0">
+      <div class="pagination d-flex justify-content-end mt-1 col">
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+      </div>
+      <div class="col d-flex justify-content-start mt-1">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Item Per Page
+          </button>
+          <ul class="dropdown-menu">
+            <li *ngFor="let item of productPerPageArr"><a class="dropdown-item" href="#" (click)="itemPerPage(item)">{{item}}</a></li>
+          </ul>
+        </div>
+        
+      </div>
     </div>
 </div>
-
-
-<!-- <form [formGroup]="loginReactiveForm" (ngSubmit)="submitData()">
-                <label for="name">Name</label><br>
-                <input type="text" formControlName="name"><br>
-
-                <label for="description">Description</label><br>
-                <textarea name="description" id="" cols="55" rows="5" formControlName="description"></textarea><br>
-
-                <label for="image">Image</label><br>
-                <input type="text" formControlName="image"><br>
-
-                <label for="status">Inventory status</label><br>
-                <select name="status" formControlName="select">
-                    <option value="" [selected]>Select a status</option>
-                    <option value="instock">INSTOCK</option>
-                    <option value="lowstock">LOWSTOCK</option>
-                    <option value="outofstock">OUTOFSTOCK</option>
-                </select><br>
-                
-                <label for="category">Category</label>
-                <input type="radio">
-                <label for="price">Price</label><br>
-                <input type="number" formControlName="price"><br>
-
-                <label for="quantity">Quantity</label><br>
-                <input type="number" formControlName="quantity"><br>
-
-                <button>Submit</button>
-            </form> -->

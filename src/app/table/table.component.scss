@@ -1,3 +1,6 @@
+.data-table {
+  margin-top: 20px;
+}
 img {
   width: 107px;
 }
@@ -6,11 +9,11 @@ img {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 33%;
+  width: 26%;
   background-color: white;
-  padding: 6rem;
+  padding: 2rem;
   border-radius: 5px;
-  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3rem 5rem rgb(0 0 0 / 30%);
   z-index: 10;
 }
 
@@ -35,11 +38,39 @@ h3 {
 
 .close-modal-1 {
   position: absolute;
-  top: 1.2rem;
+  top: 0.6rem;
   right: 2rem;
-  font-size: 58px;
+  font-size: 42px;
   color: #333;
   cursor: pointer;
   border: none;
   background: none;
+}
+
+table {
+  input[type='checkbox'] {
+     width: 51px;
+     height: 24px;
+  }
+  tr {
+    height: 100px;
+    span {
+      color: white;
+      padding: 5px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+    button {
+      border-radius: 50%;
+    }
+  }
+  th, td { 
+    vertical-align: middle;
+  }
+}
+
+.active-blue {
+  tr {
+    background-color: blue;
+  }
 }
