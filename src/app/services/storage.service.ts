@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdService } from './id.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class StorageService {
 
   productArr:any[] =[];
-  constructor() { }
+  constructor(private idSer: IdService) { }
   
   getItemsFromLocalStorage() {
     const data =  localStorage.getItem('productArr');
@@ -17,14 +18,15 @@ export class StorageService {
   }
 
   setItemInLocalStorage(data:any) {
-     data.code = new Date().getTime().toString()    
-     .split('')     
-     .map(Number)  
-     .map(n => (n || 10) + 64)   
-     .map(c => String.fromCharCode(c))  
-     .join('')
-     .toLowerCase()
-     .slice(-6);
+    data.code = this.idSer.generateId(this.productArr.length);
+    //  data.code = new Date().getTime().toString()    
+    //  .split('')     
+    //  .map(Number)  
+    //  .map(n => (n || 10) + 64)   
+    //  .map(c => String.fromCharCode(c))  
+    //  .join('')
+    //  .toLowerCase()
+    //  .slice(-6);
      data.isCheck = false;
      this.productArr.push(data);
      localStorage.setItem('productArr', JSON.stringify(this.productArr));
